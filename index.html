@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Proyecto M1</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/reset.css">
 </head>
 <body>
-    <h1>Proyecto M1</h1>
+    <div class="inicio">
+        <h1 class="titulo">Delfina Sarkis</h1>
+        <h2>Mi Página Web</h2>
+    </div>
+
+    <div class="info">
+        <h2 class="yo">¿Quién soy?</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid excepturi, vel numquam nobis quo et iusto accusamus explicabo optio commodi debitis illo, ut possimus necessitatibus. Odio ut recusandae sint quisquam?</p>
+    </div>
+    <div class="tec">
+        <h2 class="tecnologías">Mis tecnologías favoritas</h2>
+        <img src="img/tec.png" alt="Lenguajes de programación">
+    </div>
+    <div class="forum">
+        <h2 class="actividad">Ingresa tu actividad favorita</h2>
+        <form id="formulario">
+            <input type="text" id="título" placeholder="Título">
+            <input type="text" id="descripción" placeholder="Descripción">
+            <input type="url" id="url-imagen" placeholder="URL de Imagen">
+            <button type="submit">Agregar Actividad</button>
+        </form>
+        <script>
+            document.getElementById('actividad-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Obtener los valores del formulario
+                var titulo = document.getElementById('titulo').value;
+                var descripcion = document.getElementById('descripcion').value;
+                var urlImagen = document.getElementById('url-imagen').value;
+                // Crear una tarjeta con la actividad
+                var actividadCard = '<div class="actividad-card">';
+                actividadCard += '<h3>' + titulo + '</h3>';
+                actividadCard += '<p>' + descripcion + '</p>';
+                actividadCard += '<img src="' + urlImagen + '" alt="' + titulo + '">';
+                actividadCard += '</div>';
+                // Agregar la tarjeta al contenedor de actividades
+                document.getElementById('actividades-container').innerHTML += actividadCard;
+                // Limpiar el formulario
+                document.getElementById('actividad-form').reset();
+            });
+        </script>
+    </div>
 </body>
 </html>
