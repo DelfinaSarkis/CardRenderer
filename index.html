@@ -6,7 +6,7 @@
     <title>Proyecto M1</title>
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="scripts/index.js"></script>
+
 </head>
 <body>
     <section>
@@ -44,33 +44,21 @@
         <div class="forum">
         <h2 class="actividad">Ingresa Tu Actividad Favorita</h2>
         <form id="formulario">
-            <input type="text" id="título" placeholder="Título">
-            <input type="text" id="descripción" placeholder="Descripción">
-            <input type="url" id="url-imagen" placeholder="URL de Imagen">
-            <button type="submit">Agregar Actividad</button>
-        </form>
-        <script>
-            document.getElementById('actividad-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Obtener los valores del formulario
-                var titulo = document.getElementById('titulo').value;
-                var descripcion = document.getElementById('descripcion').value;
-                var urlImagen = document.getElementById('url-imagen').value;
-                // Crear una tarjeta con la actividad
-                var actividadCard = '<div class="actividad-card">';
-                actividadCard += '<h3>' + titulo + '</h3>';
-                actividadCard += '<p>' + descripcion + '</p>';
-                actividadCard += '<img src="' + urlImagen + '" alt="' + titulo + '">';
-                actividadCard += '</div>';
-                // Agregar la tarjeta al contenedor de actividades
-                document.getElementById('actividades-container').innerHTML += actividadCard;
-                // Limpiar el formulario
-                document.getElementById('actividad-form').reset();
-            });
-        </script>
-        
-    </div>
+            <div class="inputTitulo input">
+                <input type="text" id="título" placeholder="Título">
+            </div>
+            <div class="inputDescripcion input">
+                <input type="text" id="descripción" placeholder="Descripción">
+            </div>
+            <div class="inputImagen input">
+                <input type="url" id="url-imagen" placeholder="URL de Imagen">
+            </div>
+            <div class="submit input">
+                <button type="submit">Agregar Actividad</button>
+            </div>
+            <div id="activityCards"></div>
+        </form></div>
     </section>
-    
+    <script src="scripts/index.js"></script>
 </body>
 </html>

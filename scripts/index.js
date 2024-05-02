@@ -1,5 +1,5 @@
-class Activity{
-    constructor(id, title, description, imgUrl){
+class Activity {
+    constructor(id, title, description, imgUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -17,12 +17,80 @@ class Repository{
     createActivity(actividad){
         this.activities.push(actividad)
     }
+    deleteActivity(id){
+        this.activities = this.activities.filter(actividad => actividad.id !== id);
+    }
+}
+//.1
+const repository = new Repository();
+
+//.2
+function ActividadHTML(actividad) {
+    const {id, title, description, imgUrl} = actividad; //destructing
+    const divTarjeta = document.createElement('div');
+    const titulo = document.createElement('h3');
+    const descripcion = document.createElement('p');
+    const imagen = document.createElement('img');
+
+    titulo.innerHTML = title;
+    descripcion.innerHTML = description;
+    imagen.src = imgUrl;
+
+    divTarjeta.classList.add('tarjeta');
+    titulo.classList.add('titulo-actividad');
+    descripcion.classList.add('descripcion-actividad');
+    imagen.classList.add('imagen-actividad');
+
+    divTarjeta.appendChild(titulo);
+    divTarjeta.appendChild(descripcion);
+    divTarjeta.appendChild(imagen);
+    divTarjeta.classList.add('tarjeta-actividad');
+
+    return divTarjeta;
 }
 
-const miRepository = new Repository();
+//.3
+function refresh(){
+    const contenedorActividades = document.getElementById('activityCards');
+    contenedorActividades.innerHTML = '';
+    const actividades = repository.getAllActivities();
+    const elementosHTML = actividades.map(ActividadHTML);
+    elementosHTML.forEach(elemento => contenedorActividades.appendChild(elemento));
+}
 
-const activity1 = new Activity(1, "Actividad 1", "Descripción de la actividad 1", "url1.jpg");
+//.4
+function handleSubmit(event) {
+    event.preventDefault();
+    const inputTitulo = document.getElementById('título');
+    const inputDescripcion = document.getElementById('descripción');
+    const inputImagen = document.getElementById('url-imagen');
+    
+    const titulo = inputTitulo.value;
+    const descripcion = inputDescripcion.value;
+    const imgUrl = inputImagen.value;
 
-miRepository.createActivity(activity1);
+    if (!titulo || !descripcion || !imgUrl){
+        alert('Por favor completa todos los campos.');
+        return;
+    }
 
-console.log(miRepository.getAllActivities());
+    const nuevaActividad = new Activity(Date.now(), titulo, descripcion, imgUrl);
+    repository.createActivity(nuevaActividad);
+    refresh();
+    inputTitulo.value = '';
+    inputDescripcion.value = '';
+    inputImagen.value = '';
+}
+
+//.5
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formulario');
+    formulario.addEventListener('submit', handleSubmit);
+
+//Extra credit
+document.addEventListener('click', function(event){
+    if(event.target.classList.contains('tarjeta-actividad')) {
+        event.target.remove();
+    }
+});
+});
